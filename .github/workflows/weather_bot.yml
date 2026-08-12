@@ -1,0 +1,28 @@
+name: Run Weather Bot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 23 * * *' # Runs daily at 7:00 AM PST (23:00 UTC)
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run Weather Script
+        run: |
+          python main.py
